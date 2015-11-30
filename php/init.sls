@@ -7,12 +7,14 @@
 {% if use_ppa is not none %}
 
 {% set ppa_name        = salt['pillar.get']('php:ppa_name', 'ondrej/php5') %}
+{% set skip_verify        = salt['pillar.get']('php:skip_verify', true) %}
 
-php54:
+php5:
     pkgrepo.managed:
         - ppa: {{ ppa_name }}
     pkg.latest:
         - name: php5
+        - skip_verify: {{ skip_verify }}
         - refresh: True
 {% endif %}
 {% endif %}
